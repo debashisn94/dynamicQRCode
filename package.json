@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.4.2",
     "bootstrap": "^4.3.1",
+    "canvas2image": "^1.0.5",
     "html2canvas": "^1.0.0-rc.3",
     "jspdf": "^1.5.3",
     "react": "^16.9.0",
