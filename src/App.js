@@ -3,7 +3,6 @@ import { Button, Form, FormGroup, Label, Input, Container, Row, Col} from 'react
 import { QRCode } from "react-qr-svg";
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import Canvas2Image from 'canvas2image';
 import './App.css';
 
 class App extends React.Component {
@@ -68,8 +67,7 @@ class App extends React.Component {
 
   printDocument() {
     
-    const input = document.getElementById('print-this');
-    // Canvas2Image.saveAsImage('#print-this');
+    const input = document.getElementById('qr-code');
 
     html2canvas(input)
       .then((canvas) => {
@@ -115,7 +113,7 @@ class App extends React.Component {
                   </Button>
                 </Form>
               </Col>
-              <Col style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '53vh'}} >
+              <Col>
                 <div id="print-this" >
                       <br/>
                       <div id="qr-code">
@@ -127,12 +125,11 @@ class App extends React.Component {
                           value={this.state.data}
                       />
                       </div>
+                      <br/>
+                      <Button onClick={this.printDocument}>You can Save Now</Button>
                 </div>
-                <Button onClick={this.printDocument}>You can Save Now</Button>
                 </Col>
             </Row>
-            
-            
         </Container>
       </div>
     );
