@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import { QRCode } from "react-qr-svg";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import './App.css';
 
 class App extends React.Component {
@@ -63,6 +65,19 @@ class App extends React.Component {
     })
   }
 
+  printDocument() {
+    const input = document.getElementById('qr-code');
+    html2canvas(input)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        pdf.addImage(imgData, 'JPEG', 0, 0);
+        // pdf.output('dataurlnewwindow');
+        pdf.save("download.pdf");
+      })
+    ;
+  }
+
   render() {
     return (
       <div className="App">
@@ -94,7 +109,7 @@ class App extends React.Component {
                 </Button>
               </Form>
             </div>
-            <div className='col-lg-4 col-sm-4' id="qr-code"><h3>QR Code</h3>
+            <div className='col-lg-4 col-sm-4' id="qr-code">
             <QRCode
                 bgColor="#FFFFFF"
                 fgColor="#000000"
@@ -103,6 +118,7 @@ class App extends React.Component {
                 value={this.state.data}
             />
             </div>
+            <button onClick={this.printDocument}>Download</button>
       </div>
     );
   };
